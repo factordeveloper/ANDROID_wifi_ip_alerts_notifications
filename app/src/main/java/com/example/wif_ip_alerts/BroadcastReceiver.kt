@@ -1,11 +1,14 @@
 package com.example.wif_ip_alerts
 
+import android.Manifest
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
+import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.NetworkCapabilities
 import android.widget.Toast
+import androidx.core.app.ActivityCompat
 import androidx.core.app.NotificationCompat
 import androidx.core.app.NotificationManagerCompat
 
@@ -38,6 +41,18 @@ class NetworkBroadcastReceiver : BroadcastReceiver() {
             .setPriority(NotificationCompat.PRIORITY_DEFAULT)
             .build()
 
+        // Verifica el permiso antes de enviar la notificación
+        if (ActivityCompat.checkSelfPermission(
+                context,
+                Manifest.permission.POST_NOTIFICATIONS
+            ) != PackageManager.PERMISSION_GRANTED
+        ) {
+            // No se tiene permiso, no se puede enviar la notificación
+            Toast.makeText(context, "Notification permission is not granted.", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Envía la notificación
         NotificationManagerCompat.from(context).notify(System.currentTimeMillis().toInt(), notification)
     }
 }

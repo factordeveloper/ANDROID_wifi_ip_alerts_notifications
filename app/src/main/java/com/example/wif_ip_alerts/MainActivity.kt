@@ -8,6 +8,7 @@ import android.content.IntentFilter
 import android.content.pm.PackageManager
 import android.net.ConnectivityManager
 import android.net.wifi.ScanResult
+
 import android.net.wifi.WifiManager
 import android.os.Build
 import android.os.Bundle
@@ -55,6 +56,9 @@ class MainActivity : ComponentActivity() {
             notificationManager.createNotificationChannel(channel)
         }
     }
+
+
+
 
     override fun onResume() {
         super.onResume()
